@@ -15,7 +15,6 @@ namespace Wiki.EF {
 			Versions = CreateObjectSet<Version>();
 			Users = CreateObjectSet<User>();
 			Roles = CreateObjectSet<Role>();
-			UserRoles = CreateObjectSet<UserRoles>();
 		}
 
 		//Publicly Accessible
@@ -24,9 +23,6 @@ namespace Wiki.EF {
 		public ObjectSet<Version> Versions { get; private set; }
 		public ObjectSet<User> Users { get; private set; }
 		public ObjectSet<Role> Roles { get; private set; }
-
-		//Hidden Usage
-		public ObjectSet<UserRoles> UserRoles { get; private set; }
 
 		#region IWikiContext Members
 
