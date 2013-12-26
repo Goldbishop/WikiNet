@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wiki.Domain;
 
-namespace Wiki.EF {
+namespace Wiki.Repository {
 	public class WikiContext : ObjectContext, IWikiContext {
 		public WikiContext() : base( "WikiEntities" ) {
 			Articles = CreateObjectSet<Article>();
 			Namespaces = CreateObjectSet<Namespace>();
-			Versions = CreateObjectSet<Version>();
 			Users = CreateObjectSet<User>();
 			Roles = CreateObjectSet<Role>();
 		}
@@ -20,7 +19,6 @@ namespace Wiki.EF {
 		//Publicly Accessible
 		public ObjectSet<Article> Articles { get; private set; }
 		public ObjectSet<Namespace> Namespaces { get; private set; }
-		public ObjectSet<Version> Versions { get; private set; }
 		public ObjectSet<User> Users { get; private set; }
 		public ObjectSet<Role> Roles { get; private set; }
 

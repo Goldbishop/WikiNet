@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Wiki.Domain;
 
-namespace Wiki.EF {
+namespace Wiki.Repository {
 	class UserRepository : RepositoryBase , IUserRepository {
 		public UserRepository( WikiContext context ) : base( context ) { }
 
@@ -18,17 +17,17 @@ namespace Wiki.EF {
 
 		public User Find( string email ) {
 			return AllInformation()
-				.Where( u => u.email == email ).SingleOrDefault();
+				.Where( u => u.Email == email ).SingleOrDefault();
 		}
 
 		public bool DisplayExists( string display ) {
 			return FindAll()
-				.Any( u => u.display == display );
+				.Any( u => u.Display == display );
 		}
 
 		public bool EmailExists( string email ) {
 			return FindAll()
-				.Any( u => u.email == email );
+				.Any( u => u.Email == email );
 		}
 		#endregion
 

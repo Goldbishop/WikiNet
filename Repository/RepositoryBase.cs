@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Objects;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 
-namespace Wiki.EF {
+namespace Wiki.Repository {
 	public abstract class RepositoryBase {
 		public RepositoryBase( WikiContext context ) {
 			this.Context = context;

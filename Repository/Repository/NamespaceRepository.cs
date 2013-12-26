@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wiki.Domain;
 
-namespace Wiki.EF {
+namespace Wiki.Repository {
 	public class NamespaceRepository:RepositoryBase, INamespaceRepository {
 		public NamespaceRepository( WikiContext context ) : base( context ) { }
 

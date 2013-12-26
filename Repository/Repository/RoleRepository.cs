@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wiki.Domain;
 
-namespace Wiki.EF {
+namespace Wiki.Repository {
 	public class RoleRepository:RepositoryBase, IRoleRepository {
+		public RoleRepository( WikiContext context ) : base(context) { }
+
 		#region IRoleRepository Members
 
 		public IEnumerable<Role> Find( Guid userId ) {
@@ -13,16 +17,16 @@ namespace Wiki.EF {
 				.Where( r => r.Users.Any(u => u.Id == userId) );
 		}
 
-		public bool UsersExist( Guid roleId ) {
+		public bool UsersExist( short roleId ) {
 			return AllInformation()
-				.Any( r => r.UserRoles.Any( ur => ur.RoleId == roleId ) );
+				.Any( r => r.Users.Any( ur => ur.RoleID == roleId ) );
 		}
 
 		#endregion
 
 		#region IRepositoryBase<Role> Members
 
-		public System.Data.Objects.ObjectSet<Role> Entity {
+		public ObjectSet<Role> Entity {
 			get { return Context.Roles; }
 		}
 
@@ -51,6 +55,6 @@ namespace Wiki.EF {
 	public interface IRoleRepository:IRepositoryBase<Role> {
 		IEnumerable<Role> Find( Guid userId );
 
-		bool UsersExist( Guid roleId );
+		bool UsersExist( short roleId );
 	}
 }
