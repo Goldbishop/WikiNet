@@ -2,38 +2,33 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wiki.Domain;
 
 namespace Wiki.Repository {
-	public class WikiContext : ObjectContext, IWikiContext {
-		public WikiContext() : base( "WikiEntities" ) {
-			Articles = CreateObjectSet<Article>();
-			Namespaces = CreateObjectSet<Namespace>();
-			Users = CreateObjectSet<User>();
-			Roles = CreateObjectSet<Role>();
+	public class WikiContext : DbContext {
+		public WikiContext( string connName )
+			: base( "Name=" + connName ) {
+				Configuration.LazyLoadingEnabled = false;
 		}
 
-		//Publicly Accessible
-		public ObjectSet<Article> Articles { get; private set; }
-		public ObjectSet<Namespace> Namespaces { get; private set; }
-		public ObjectSet<User> Users { get; private set; }
-		public ObjectSet<Role> Roles { get; private set; }
+		protected override void OnModelCreating( DbModelBuilder modelBuilder ) {
+			modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+			modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-		#region IWikiContext Members
-
-		public void Flush() {
-			this.SaveChanges();
+			modelBuilder.Configurations.Add( new ArticleMap() );
+			modelBuilder.Configurations.Add( new ArticleContentMap() );
+			modelBuilder.Configurations.Add( new NamespaceMap() );
+			modelBuilder.Configurations.Add( new RoleMap() );
+			modelBuilder.Configurations.Add( new RoleAccessMap() );
+			modelBuilder.Configurations.Add( new ArticleMap() );
+			modelBuilder.Configurations.Add( new ArticleMap() );
+			modelBuilder.Configurations.Add( new ArticleMap() );
+			
 		}
 
-		#endregion
-
-	}
-
-
-	public interface IWikiContext {
-		void Flush();
 	}
 }
