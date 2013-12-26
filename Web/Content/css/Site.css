@@ -1,0 +1,24 @@
+div .header {
+  width: 99%;
+  height: 110px; }
+  div .header .logo {
+    left: 10px;
+    top: 10px; }
+    div .header .logo img, div .header .logo p {
+      width: 100px;
+      height: 100px; }
+  div .header .title {
+    left: 120px;
+    top: 10px;
+    text-align: center; }
+  div .header .login {
+    right: 10px;
+    top: 10px; }
+div .body .left {
+  left: 10px;
+  top: 120px; }
+div .footer {
+  position: fixed;
+  bottom: 1px;
+  height: 30px; }
+

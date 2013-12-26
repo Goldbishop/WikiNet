@@ -1,0 +1,40 @@
+div { 
+   .header {
+	   width:99%;
+	   height: 110px;
+
+	   .logo {
+		   left:10px;
+		   top: 10px;
+
+		   img, p {
+			   width:100px;
+			   height:100px;
+		   }
+	   }
+
+	   .title {
+		   left:120px;
+		   top:10px;
+			text-align: center;
+	   }
+
+	   .login { 
+		   right:10px;
+		   top:10px;
+	   }
+   }
+
+	.body {
+		.left { 
+			left: 10px;
+			top: 120px;
+		}
+	}
+
+	.footer {
+		position:fixed;
+		bottom:1px;
+		height:30px;
+	}
+}
