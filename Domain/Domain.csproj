@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArticleContent.cs" />
+    <Compile Include="Objects\ArticleContent.cs" />
     <Compile Include="Objects\Article.cs" />
     <Compile Include="DomainInstaller.cs" />
     <Compile Include="DomainMap.cs" />
