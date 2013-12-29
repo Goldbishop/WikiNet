@@ -65,7 +65,7 @@ namespace Wiki.Domain {
 		public string Zip { get; set; }
 		public string Country { get; set; }
 
-		public User User { get; set; }
+		public virtual User User { get; set; }
 		#endregion
 	}
 
