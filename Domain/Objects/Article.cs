@@ -46,6 +46,7 @@ namespace Wiki.Domain {
 		int NamespaceId { get; set; }
 		Guid CreatedById { get; set; }
 		DateTime CreatedOn { get; set; }
+		bool Active { get; set; }
 
 		//Navigation Property
 		Namespace Namespace { get; set; }
@@ -63,6 +64,7 @@ namespace Wiki.Domain {
 		public int NamespaceId { get; set; }
 		public Guid CreatedBy { get; set; }
 		public DateTime CreatedOn { get; set; }
+		public bool Active { get; set; }
 
 		//Navigation properties
 		public Namespace Namespace { get; set; }
