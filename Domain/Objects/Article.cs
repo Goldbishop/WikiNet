@@ -11,15 +11,31 @@ namespace Wiki.Domain {
 
 			HasKey( a => a.Id );
 
-			Property( a => a.Id ).HasColumnName( "id" );
-			Property( a => a.Name ).HasColumnName( "name" );
-			Property( a => a.NamespaceId ).HasColumnName( "NamespaceId" );
-			Property( a => a.CreatedBy ).HasColumnName( "createdby" );
-			Property( a => a.CreatedOn ).HasColumnName( "createdon" );
+			Property( a => a.Id ).HasColumnName( "id" )
+				.IsRequired()
+				.HasDatabaseGeneratedOption( DatabaseGeneratedOption.Identity );
+			Property( a => a.Name ).HasColumnName( "name" )
+				.IsRequired().HasMaxLength( 25 );
+			Property( a => a.NamespaceId ).HasColumnName( "NamespaceId" )
+				.IsRequired();
+			Property( a => a.CreatedById ).HasColumnName( "createdby" )
+				.IsRequired();
+			Property( a => a.CreatedOn ).HasColumnName( "createdon" )
+				.IsRequired();
+			Property( a => a.Active ).HasColumnName( "active" )
+				.IsOptional();
 
 			//TODO: Map Navigation Properties
 			HasRequired( a => a.Content )
 				.WithRequiredPrincipal( ac => ac.Article );
+			HasRequired( a => a.CreatedBy )
+				.WithMany( u => u.Articles )
+				.HasForeignKey( a => a.CreatedById );
+			HasRequired( a => a.Namespace )
+				.WithMany( ns => ns.Articles )
+				.HasForeignKey( a => a.NamespaceId );
+			HasMany( a => a.History )
+				.WithRequired( ac => ac.Article );
 
 		}
 	}
