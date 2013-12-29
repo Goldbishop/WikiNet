@@ -21,7 +21,8 @@ namespace Wiki.Domain {
 
 			//Navigation Properties
 			HasRequired( ac => ac.User )
-				.WithMany( u => u.Contribution );
+				.WithMany( u => u.Contribution )
+				.HasForeignKey(ac => ac.CreatedBy);
 			HasRequired( ac => ac.Article )
 				.WithMany( a => a.History )
 				.Map( x => x.MapKey( "ArticleId" ) );
