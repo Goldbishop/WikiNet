@@ -31,7 +31,7 @@ namespace Wiki.Domain {
 			Property(ud => ud.Country).HasColumnName("country")
 				.IsOptional();
 			HasRequired( ud => ud.User )
-				.WithRequiredPrincipal( u => u.Details );
+				.WithOptional( u => u.Details );
 
 		}
 	}
