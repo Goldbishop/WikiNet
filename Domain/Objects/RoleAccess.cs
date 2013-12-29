@@ -23,7 +23,7 @@ namespace Wiki.Domain {
 				.HasForeignKey( ra => ra.RoleID );
 			HasRequired( ra => ra.Namespace )
 				.WithMany( ns => ns.Access )
-				.Map( x => x.MapKey( "NSId" ) );
+				.HasForeignKey( ra => ra.NamespaceID );
 		}
 	}
 
