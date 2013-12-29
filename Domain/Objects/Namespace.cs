@@ -15,11 +15,12 @@ namespace Wiki.Domain {
 			//Property-Table mapping
 			Property( n => n.Id ).HasColumnName( "id" )
 				.HasDatabaseGeneratedOption( DatabaseGeneratedOption.Identity );
-			Property( n => n.Active ).HasColumnName( "active" );
 			Property( n => n.Name ).HasColumnName( "name" )
 				.IsRequired().HasMaxLength( 25 ) ;
 			Property( n => n.Description ).HasColumnName( "description" )
 				.IsOptional().HasMaxLength( 150 ) ;
+			Property( n => n.Active ).HasColumnName( "active" )
+				.IsOptional();
 
 			//Navigation Properties
 			HasMany( n => n.Articles )
