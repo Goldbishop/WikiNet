@@ -50,7 +50,7 @@ namespace Wiki.Domain {
 
 		//Navigation Property
 		Namespace Namespace { get; set; }
-		User User { get; set; }
+		User CreatedBy { get; set; }
 		ArticleContent Content { get; set; }
 		ICollection<ArticleContent> History { get; set; }
 	}
@@ -68,7 +68,7 @@ namespace Wiki.Domain {
 
 		//Navigation properties
 		public Namespace Namespace { get; set; }
-		public User User { get; set; }	//This is associated with CreatedBy property
+		public User CreatedBy { get; set; }
 		public ArticleContent Content { get; set; }
 		public ICollection<ArticleContent> History { get; set; }
 
