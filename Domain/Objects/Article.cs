@@ -11,15 +11,31 @@ namespace Wiki.Domain {
 
 			HasKey( a => a.Id );
 
-			Property( a => a.Id ).HasColumnName( "id" );
-			Property( a => a.Name ).HasColumnName( "name" );
-			Property( a => a.NamespaceId ).HasColumnName( "NamespaceId" );
-			Property( a => a.CreatedBy ).HasColumnName( "createdby" );
-			Property( a => a.CreatedOn ).HasColumnName( "createdon" );
+			Property( a => a.Id ).HasColumnName( "id" )
+				.IsRequired()
+				.HasDatabaseGeneratedOption( DatabaseGeneratedOption.Identity );
+			Property( a => a.Name ).HasColumnName( "name" )
+				.IsRequired().HasMaxLength( 25 );
+			Property( a => a.NamespaceId ).HasColumnName( "NamespaceId" )
+				.IsRequired();
+			Property( a => a.CreatedById ).HasColumnName( "createdby" )
+				.IsRequired();
+			Property( a => a.CreatedOn ).HasColumnName( "createdon" )
+				.IsRequired();
+			Property( a => a.Active ).HasColumnName( "active" )
+				.IsOptional();
 
 			//TODO: Map Navigation Properties
 			HasRequired( a => a.Content )
 				.WithRequiredPrincipal( ac => ac.Article );
+			HasRequired( a => a.CreatedBy )
+				.WithMany( u => u.Articles )
+				.HasForeignKey( a => a.CreatedById );
+			HasRequired( a => a.Namespace )
+				.WithMany( ns => ns.Articles )
+				.HasForeignKey( a => a.NamespaceId );
+			HasMany( a => a.History )
+				.WithRequired( ac => ac.Article );
 
 		}
 	}
@@ -28,12 +44,13 @@ namespace Wiki.Domain {
 		Guid Id { get; set; }
 		string Name { get; set; }
 		int NamespaceId { get; set; }
-		Guid CreatedBy { get; set; }
+		Guid CreatedById { get; set; }
 		DateTime CreatedOn { get; set; }
+		bool Active { get; set; }
 
 		//Navigation Property
 		Namespace Namespace { get; set; }
-		User User { get; set; }
+		User CreatedBy { get; set; }
 		ArticleContent Content { get; set; }
 		ICollection<ArticleContent> History { get; set; }
 	}
@@ -45,12 +62,13 @@ namespace Wiki.Domain {
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public int NamespaceId { get; set; }
-		public Guid CreatedBy { get; set; }
+		public Guid CreatedById { get; set; }
 		public DateTime CreatedOn { get; set; }
+		public bool Active { get; set; }
 
 		//Navigation properties
 		public Namespace Namespace { get; set; }
-		public User User { get; set; }	//This is associated with CreatedBy property
+		public User CreatedBy { get; set; }
 		public ArticleContent Content { get; set; }
 		public ICollection<ArticleContent> History { get; set; }
 

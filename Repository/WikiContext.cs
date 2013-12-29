@@ -1,45 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wiki.Domain;
 
-namespace Wiki.EF {
-	public class WikiContext : ObjectContext, IWikiContext {
-		public WikiContext() : base( "WikiEntities" ) {
-			Articles = CreateObjectSet<Article>();
-			Namespaces = CreateObjectSet<Namespace>();
-			Versions = CreateObjectSet<Version>();
-			Users = CreateObjectSet<User>();
-			Roles = CreateObjectSet<Role>();
-			UserRoles = CreateObjectSet<UserRoles>();
+namespace Wiki.Repository {
+	public class WikiContext : DbContext {
+		public WikiContext( string connName )
+			: base( "Name=" + connName ) {
+				Configuration.LazyLoadingEnabled = false;
 		}
 
-		//Publicly Accessible
-		public ObjectSet<Article> Articles { get; private set; }
-		public ObjectSet<Namespace> Namespaces { get; private set; }
-		public ObjectSet<Version> Versions { get; private set; }
-		public ObjectSet<User> Users { get; private set; }
-		public ObjectSet<Role> Roles { get; private set; }
+		protected override void OnModelCreating( DbModelBuilder modelBuilder ) {
+			modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+			modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-		//Hidden Usage
-		public ObjectSet<UserRoles> UserRoles { get; private set; }
-
-		#region IWikiContext Members
-
-		public void Flush() {
-			this.SaveChanges();
+			modelBuilder.Configurations.Add( new ArticleMap() );
+			modelBuilder.Configurations.Add( new ArticleContentMap() );
+			modelBuilder.Configurations.Add( new NamespaceMap() );
+			modelBuilder.Configurations.Add( new RoleMap() );
+			modelBuilder.Configurations.Add( new RoleAccessMap() );
+			modelBuilder.Configurations.Add( new SyntaxMap() );
+			modelBuilder.Configurations.Add( new UserMap() );
+			modelBuilder.Configurations.Add( new UserDetailsMap() );
+			
 		}
 
-		#endregion
-
-	}
-
-
-	public interface IWikiContext {
-		void Flush();
 	}
 }

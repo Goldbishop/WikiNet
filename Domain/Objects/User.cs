@@ -24,10 +24,13 @@ namespace Wiki.Domain {
 
 			//TODO: Map Navigation Properties
 			HasOptional( u => u.Details )
-				.WithRequired( ud => ud.User );
+				.WithRequired(ud => ud.User);
 			HasRequired( u => u.Role )
-				.WithMany( r => r.Users );
-			HasOptional( u => u.Articles );
+				.WithMany( r => r.Users )
+				.HasForeignKey( u => u.RoleID );
+			HasMany(u => u.Articles)
+				.WithRequired(a => a.CreatedBy);
+				
 		}
 	}
 
@@ -36,6 +39,7 @@ namespace Wiki.Domain {
 		string Display { get; set; }
 		string Email { get; set; }
 		bool Verified { get; set; }
+		bool Active { get; set; }
 		Int16 RoleID { get; set; }
 
 		//Navigation Properties
@@ -53,6 +57,7 @@ namespace Wiki.Domain {
 		public string Display { get; set; }
 		public string Email { get; set; }
 		public bool Verified { get; set; }
+		public bool Active { get; set; }
 		public short RoleID { get; set; }
 
 		//Navigation Properties

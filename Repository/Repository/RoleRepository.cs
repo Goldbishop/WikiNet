@@ -3,54 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wiki.Domain;
+using Woodsoft.Repository;
 
-namespace Wiki.EF {
-	public class RoleRepository:RepositoryBase, IRoleRepository {
+namespace Wiki.Repository {
+	public interface IRoleRepository : IRepository<Role> {
+		Role FindById( Int16 id );
+		bool NameExists( string name );
+	}
+
+	public class RoleRepository : RepositoryBase<Role> , IRoleRepository {
+
 		#region IRoleRepository Members
 
-		public IEnumerable<Role> Find( Guid userId ) {
+		public Role FindById( short id ) {
 			return AllInformation()
-				.Where( r => r.Users.Any(u => u.Id == userId) );
+				.Where( r => r.Id == id )
+					.SingleOrDefault();
 		}
 
-		public bool UsersExist( Guid roleId ) {
-			return AllInformation()
-				.Any( r => r.UserRoles.Any( ur => ur.RoleId == roleId ) );
+		public bool NameExists( string name ) {
+			return Find()
+				.Any( r => r.Name == name );
 		}
-
 		#endregion
 
-		#region IRepositoryBase<Role> Members
+		#region IRepository<Role> Members
 
-		public System.Data.Objects.ObjectSet<Role> Entity {
-			get { return Context.Roles; }
+		public void Add( Role entity ) {
+			if( !Entity.Contains( entity ) )
+				Entity.Add( entity );
 		}
 
-		public void Save( Role entity ) {
-			if( !Entity.Contains( entity ) )
-				Entity.AddObject( entity );
+		public IQueryable<Role> AllInformation() {
+			return Entity
+				.Include( "Users" )
+				.Include( "Access" );
 		}
 
 		public void Delete( Role entity ) {
 			if( Entity.Contains( entity ) )
-				Entity.DeleteObject( entity );
+				Entity.Remove( entity );
 		}
 
-		public IEnumerable<Role> AllInformation() {
+		public ICollection<Role> Find() {
+			return Entity.ToList();
+		}
+
+		public IQueryable<Role> FindAll() {
 			return Entity
-				.Include( "Users" );
+				.Include( "Access" );
 		}
 
-		public IEnumerable<Role> FindAll() {
-			return Entity;
+		public void Save() {
+			Context.SaveChanges();
 		}
 
 		#endregion
-	}
-
-	public interface IRoleRepository:IRepositoryBase<Role> {
-		IEnumerable<Role> Find( Guid userId );
-
-		bool UsersExist( Guid roleId );
 	}
 }

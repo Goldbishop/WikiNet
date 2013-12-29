@@ -10,18 +10,27 @@ namespace Wiki.Domain {
 
 			HasKey( ud => ud.UserID );
 
-			Property(ud => ud.UserID).HasColumnName("uid");
-			Property(ud => ud.FirstName).HasColumnName("fname");
-			Property(ud => ud.LastName).HasColumnName("lname");
-			Property(ud => ud.Street1).HasColumnName("street1");
-			Property(ud => ud.Street2).HasColumnName("street2");
-			Property(ud => ud.City).HasColumnName("city");
-			Property(ud => ud.State).HasColumnName("state");
-			Property(ud => ud.Country).HasColumnName("country");
+			Property(ud => ud.UserID).HasColumnName("uid")
+				.IsRequired();
+			Property(ud => ud.FirstName).HasColumnName("fname")
+				.IsRequired();
+			Property(ud => ud.LastName).HasColumnName("lname")
+				.IsRequired();
+			Property(ud => ud.Street1).HasColumnName("street1")
+				.IsOptional();
+			Property(ud => ud.Street2).HasColumnName("street2")
+				.IsOptional();
+			Property(ud => ud.City).HasColumnName("city")
+				.IsOptional();
+			Property(ud => ud.State).HasColumnName("state")
+				.IsOptional();
+			Property( ud => ud.Zip ).HasColumnName( "zip" )
+				.IsOptional();
+			Property(ud => ud.Country).HasColumnName("country")
+				.IsOptional();
 
-			//TODO: Map Navigation Property
 			HasRequired( ud => ud.User )
-				.WithRequiredPrincipal( u => u.Details );
+				.WithOptional( u => u.Details );
 
 		}
 	}
@@ -35,6 +44,7 @@ namespace Wiki.Domain {
 		string City { get; set; }
 		string County { get; set; }
 		string State { get; set; }
+		string Zip { get; set; }
 		string Country { get; set; }
 
 		User User { get; set; }
@@ -51,9 +61,10 @@ namespace Wiki.Domain {
 		public string City { get; set; }
 		public string County { get; set; }
 		public string State { get; set; }
+		public string Zip { get; set; }
 		public string Country { get; set; }
 
-		public User User { get; set; }
+		public virtual User User { get; set; }
 		#endregion
 	}
 

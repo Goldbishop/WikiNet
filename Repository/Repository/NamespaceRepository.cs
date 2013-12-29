@@ -1,60 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wiki.Domain;
+using Woodsoft.Repository;
 
-namespace Wiki.EF {
-	public class NamespaceRepository:RepositoryBase, INamespaceRepository {
-		public NamespaceRepository( WikiContext context ) : base( context ) { }
+namespace Wiki.Repository {
+	public interface INamespaceRepository:IRepository<Namespace> {
+		Namespace FindById( int id );
+	}
+	public class NamespaceRepository:RepositoryBase<Namespace>, INamespaceRepository {
 
 		#region INamespaceRepository Members
 
-		public IEnumerable<Namespace> AllInformation() {
-			return Entity
-				.Include( "Articles" );
-		}
-
-		public Namespace Find( string Name ) {
+		public Namespace FindById( int id ) {
 			return AllInformation()
-				.Where( ns => ns.Name == Name ).SingleOrDefault();
-		}
-
-		public bool Exists( string Name ) {
-			return FindAll()
-				.Any( ns => ns.Name == Name );
+				.Where( n => n.Id == id )
+					.SingleOrDefault();
 		}
 
 		#endregion
 
-		#region IRepositoryBase<Namespace> Members
+		#region IRepository<Namespace> Members
 
-		public ObjectSet<Namespace> Entity {
-			get { return Context.Namespaces; }
+		public void Add( Namespace entity ) {
+			if( !Entity.Contains( entity ) )
+				Entity.Add( entity );
 		}
 
-		public void Save( Namespace entity ) {
-			if( !Entity.Contains( entity ) )
-				Entity.AddObject( entity );
+		public IQueryable<Namespace> AllInformation() {
+			return Entity
+				.Include( "Articles" )
+				.Include( "Access" );
 		}
 
 		public void Delete( Namespace entity ) {
 			if( Entity.Contains( entity ) )
-				Entity.DeleteObject( entity );
+				Entity.Remove( entity );
 		}
 
-		public IEnumerable<Namespace> FindAll() {
-			return Entity;
+		public ICollection<Namespace> Find() {
+			return Entity.ToList();
+		}
+
+		public IQueryable<Namespace> FindAll() {
+			return Entity
+				.Include( "Access" );
+		}
+
+		public void Save() {
+			Context.SaveChanges();
 		}
 
 		#endregion
-	}
-
-	public interface INamespaceRepository:IRepositoryBase<Namespace> {
-
-		Namespace Find( string Name );
-		bool Exists( string Name );
-
 	}
 }
