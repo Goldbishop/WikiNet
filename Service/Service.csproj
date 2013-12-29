@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\NamespaceService.cs" />
+    <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
