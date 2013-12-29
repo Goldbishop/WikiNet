@@ -25,7 +25,7 @@ namespace Wiki.Domain {
 				.HasForeignKey(ac => ac.CreatedBy);
 			HasRequired( ac => ac.Article )
 				.WithMany( a => a.History )
-				.Map( x => x.MapKey( "ArticleId" ) );
+				.HasForeignKey(ac => ac.ArticleId);
 		}
 	}
 
