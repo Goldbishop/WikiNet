@@ -10,7 +10,6 @@ namespace Wiki.Domain {
 
 			HasKey( ud => ud.UserID );
 
-			Property(ud => ud.FirstName).HasColumnName("fname");
 			Property(ud => ud.LastName).HasColumnName("lname");
 			Property(ud => ud.Street1).HasColumnName("street1");
 			Property(ud => ud.Street2).HasColumnName("street2");
@@ -20,6 +19,8 @@ namespace Wiki.Domain {
 
 			//TODO: Map Navigation Property
 			Property(ud => ud.UserID).HasColumnName("uid")
+				.IsRequired();
+			Property(ud => ud.FirstName).HasColumnName("fname")
 				.IsRequired();
 			HasRequired( ud => ud.User )
 				.WithRequiredPrincipal( u => u.Details );
