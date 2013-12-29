@@ -20,7 +20,7 @@ namespace Wiki.Domain {
 			Property( r => r.Description ).HasColumnName( "description" )
 				.IsOptional().HasMaxLength( 255 );
 			Property( r => r.Active ).HasColumnName( "active" )
-				.IsOptional(); ;
+				.IsOptional();
 
 			//Navigation mapping
 			HasMany( r => r.Users )
