@@ -59,6 +59,7 @@
     <Compile Include="Objects\Article.cs" />
     <Compile Include="DomainInstaller.cs" />
     <Compile Include="DomainMap.cs" />
+    <Compile Include="Objects\Menu.cs" />
     <Compile Include="Objects\Namespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Role.cs" />
