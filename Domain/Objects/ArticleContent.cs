@@ -13,7 +13,8 @@ namespace Wiki.Domain {
 			HasKey( ac => new { ac.ArticleId , ac.Version } );
 
 			Property( ac => ac.ArticleId ).HasColumnName( "ArticleId" );
-			Property( ac => ac.Title ).HasColumnName( "title" );
+			Property( ac => ac.Title ).HasColumnName( "title" )
+				.IsRequired().HasMaxLength( 50 );
 			Property( ac => ac.Body ).HasColumnName( "body" );
 			Property( ac => ac.Version ).HasColumnName( "version" );
 			Property( ac => ac.CreatedBy ).HasColumnName( "createdby" );
