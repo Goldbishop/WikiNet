@@ -24,9 +24,9 @@ namespace Wiki.Repository {
 			modelBuilder.Configurations.Add( new NamespaceMap() );
 			modelBuilder.Configurations.Add( new RoleMap() );
 			modelBuilder.Configurations.Add( new RoleAccessMap() );
-			modelBuilder.Configurations.Add( new ArticleMap() );
-			modelBuilder.Configurations.Add( new ArticleMap() );
-			modelBuilder.Configurations.Add( new ArticleMap() );
+			modelBuilder.Configurations.Add( new SyntaxMap() );
+			modelBuilder.Configurations.Add( new UserMap() );
+			modelBuilder.Configurations.Add( new UserDetailsMap() );
 			
 		}
 
