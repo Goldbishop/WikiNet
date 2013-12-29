@@ -10,11 +10,6 @@ namespace Wiki.Domain {
 
 			HasKey( ud => ud.UserID );
 
-			Property(ud => ud.Street1).HasColumnName("street1");
-			Property(ud => ud.Street2).HasColumnName("street2");
-			Property(ud => ud.City).HasColumnName("city");
-			Property(ud => ud.State).HasColumnName("state");
-			Property(ud => ud.Country).HasColumnName("country");
 
 			//TODO: Map Navigation Property
 			Property(ud => ud.UserID).HasColumnName("uid")
@@ -23,6 +18,18 @@ namespace Wiki.Domain {
 				.IsRequired();
 			Property(ud => ud.LastName).HasColumnName("lname")
 				.IsRequired();
+			Property(ud => ud.Street1).HasColumnName("street1")
+				.IsOptional();
+			Property(ud => ud.Street2).HasColumnName("street2")
+				.IsOptional();
+			Property(ud => ud.City).HasColumnName("city")
+				.IsOptional();
+			Property(ud => ud.State).HasColumnName("state")
+				.IsOptional();
+			Property( ud => ud.Zip ).HasColumnName( "zip" )
+				.IsOptional();
+			Property(ud => ud.Country).HasColumnName("country")
+				.IsOptional();
 			HasRequired( ud => ud.User )
 				.WithRequiredPrincipal( u => u.Details );
 
