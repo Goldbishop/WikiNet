@@ -319,7 +319,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Code\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
