@@ -175,8 +175,8 @@
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Wiki.EF">
-      <HintPath>..\binaries\Wiki.EF.dll</HintPath>
+    <Reference Include="Woodsoft.Repository.4.5">
+      <HintPath>..\binaries\Woodsoft.Repository.4.5.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
