@@ -1,61 +1,59 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Wiki.Domain;
+using Woodsoft.Repository;
 
 namespace Wiki.Repository {
-	public class ArticleRepository:RepositoryBase, IArticleRepository {
-		public ArticleRepository( WikiContext context ) : base( context ) { }
+	public interface IArticleRepository : IRepository<Article> {
+		Article FindByID( Guid id );
+
+	}
+
+	public class ArticleRepository : RepositoryBase<Article> , IArticleRepository {
 
 		#region IArticleRepository Members
 
-
-		public Article Find( string name ) {
+		public Article FindByID( Guid id ) {
 			return AllInformation()
-				.Where( a => a.Name == name ).SingleOrDefault();
-		}
-
-		public bool Exists( string name ) {
-			return FindAll()
-				.Any( a => a.Name == name );
+				.Where( a => a.Id == id )
+					.SingleOrDefault();
 		}
 
 		#endregion
 
-		#region IRepositoryBase<Article> Members
+		#region IRepository<Article> Members
 
-		public ObjectSet<Article> Entity {
-			get { return this.Context.Articles; }
+		public void Add( Article entity ) {
+			if( !Entity.Contains( entity ) )
+				Entity.Add( entity );
 		}
 
-		public void Save( Article entity ) {
-			if( !Entity.Contains( entity ) )
-				Entity.AddObject( entity );
+		public IQueryable<Article> AllInformation() {
+			return Entity
+				.Include( "Content" );
 		}
 
 		public void Delete( Article entity ) {
 			if( Entity.Contains( entity ) )
-				Entity.DeleteObject( entity );
+				Entity.Remove( entity );
 		}
 
-		public IEnumerable<Article> AllInformation() {
-			return Entity
-				.Include( "Versions" )
-				.Include( "Namespace" )
-				.Include( "CreatedUser" );
+		public ICollection<Article> Find() {
+			return FindAll().ToList();
 		}
 
-		public IEnumerable<Article> FindAll() {
-			return Entity
-				.Include("Namespace");
+		public IQueryable<Article> FindAll() {
+			return Entity;
+		}
+
+		public void Save() {
+			Context.SaveChanges();
 		}
 
 		#endregion
-	}
-
-	public interface IArticleRepository:IRepositoryBase<Article> {
-		Article Find( string name );
-
-		bool Exists( string name );
 	}
 }
