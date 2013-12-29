@@ -10,7 +10,6 @@ namespace Wiki.Domain {
 
 			HasKey( ud => ud.UserID );
 
-			Property(ud => ud.LastName).HasColumnName("lname");
 			Property(ud => ud.Street1).HasColumnName("street1");
 			Property(ud => ud.Street2).HasColumnName("street2");
 			Property(ud => ud.City).HasColumnName("city");
@@ -21,6 +20,8 @@ namespace Wiki.Domain {
 			Property(ud => ud.UserID).HasColumnName("uid")
 				.IsRequired();
 			Property(ud => ud.FirstName).HasColumnName("fname")
+				.IsRequired();
+			Property(ud => ud.LastName).HasColumnName("lname")
 				.IsRequired();
 			HasRequired( ud => ud.User )
 				.WithRequiredPrincipal( u => u.Details );
