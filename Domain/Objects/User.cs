@@ -24,10 +24,13 @@ namespace Wiki.Domain {
 
 			//TODO: Map Navigation Properties
 			HasOptional( u => u.Details )
-				.WithRequired( ud => ud.User );
+				.WithRequired(ud => ud.User);
 			HasRequired( u => u.Role )
-				.WithMany( r => r.Users );
-			HasOptional( u => u.Articles );
+				.WithMany( r => r.Users )
+				.HasForeignKey( u => u.RoleID );
+			HasMany(u => u.Articles)
+				.WithRequired(a => a.CreatedBy);
+				
 		}
 	}
 
