@@ -1,75 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Wiki.Domain;
+using Woodsoft.Repository;
 
 namespace Wiki.Repository {
-	class UserRepository : RepositoryBase , IUserRepository {
-		public UserRepository( WikiContext context ) : base( context ) { }
+	public interface IUserRepository : IRepository<User> {
+		User FindById( Guid id );
+		User FindByEmail( string email );
+		ICollection<User> FindByRole( Int16 id );
+		ICollection<User> FindByVerified( bool val );
 
+	}
+
+	public class UserRepository : RepositoryBase<User> , IUserRepository {
 		#region IUserRepository Members
 
-		public User Find( Guid id ) {
+		public User FindById( Guid id ) {
 			return AllInformation()
-				.Where( u => u.Id == id ).SingleOrDefault();
+				.Where( u => u.Id == id )
+					.SingleOrDefault();
 		}
 
-		public User Find( string email ) {
+		public User FindByEmail( string email ) {
 			return AllInformation()
-				.Where( u => u.Email == email ).SingleOrDefault();
+				.Where( u => u.Email == email )
+					.SingleOrDefault();
 		}
 
-		public bool DisplayExists( string display ) {
+		public ICollection<User> FindByRole( short id ) {
 			return FindAll()
-				.Any( u => u.Display == display );
+				.Where( u => u.RoleID == id )
+					.ToList();
 		}
 
-		public bool EmailExists( string email ) {
+		public ICollection<User> FindByVerified( bool val ) {
 			return FindAll()
-				.Any( u => u.Email == email );
+				.Where( u => u.Verified == val )
+					.ToList();
 		}
+
 		#endregion
 
-		#region IRepositoryBase<User> Members
+		#region IRepository<User> Members
 
-		public ObjectSet<User> Entity {
-			get { return Context.Users; }
+		public void Add( User entity ) {
+			if( !Entity.Contains( entity ) )
+				Entity.Add( entity );
 		}
 
-		public void Save( User entity ) {
-			if( !Entity.Contains( entity ) )
-				Entity.AddObject( entity );
+		public IQueryable<User> AllInformation() {
+			return Entity
+				.Include( "Details" )
+				.Include( "Role" )
+				.Include( "Articles" )
+				.Include( "Contribution" );
 		}
 
 		public void Delete( User entity ) {
 			if( Entity.Contains( entity ) )
-				Entity.DeleteObject( entity );
+				Entity.Remove( entity );
 		}
 
-		public IEnumerable<User> AllInformation() {
-			return Entity
-				.Include( "UserRoles" )
-				.Include( "UserRoles.Role" )
-				.Include( "ArticlesCreated" )
-				.Include( "ArticlesCreated.Namespace" )
-				.Include( "CreatedVersions" )
-				.Include( "CreatedVersions.Article" );
+		public ICollection<User> Find() {
+			return FindAll()
+				.ToList();
 		}
 
-		public IEnumerable<User> FindAll() {
+		public IQueryable<User> FindAll() {
 			return Entity
-				.Include( "UserRoles" )
-				.Include( "UserRoles.Role" );
+				.Include( "Details" )
+				.Include( "Role" );
+		}
+
+		public void Save() {
+			Context.SaveChanges();
 		}
 
 		#endregion
-	}
-
-	public interface IUserRepository : IRepositoryBase<User> {
-		User Find( Guid id );
-		User Find( string email );
-		bool DisplayExists( string display );
-		bool EmailExists( string email );
 	}
 }
