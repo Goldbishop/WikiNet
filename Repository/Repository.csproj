@@ -73,6 +73,7 @@
     <Compile Include="Repository\ArticleRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\RoleAccessRepository.cs" />
+    <Compile Include="Repository\SyntaxRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="WikiContext.cs" />
   </ItemGroup>
