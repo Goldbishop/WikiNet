@@ -44,7 +44,7 @@ namespace Wiki.Domain {
 		Guid Id { get; set; }
 		string Name { get; set; }
 		int NamespaceId { get; set; }
-		Guid CreatedBy { get; set; }
+		Guid CreatedById { get; set; }
 		DateTime CreatedOn { get; set; }
 
 		//Navigation Property
