@@ -62,7 +62,7 @@ namespace Wiki.Domain {
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public int NamespaceId { get; set; }
-		public Guid CreatedBy { get; set; }
+		public Guid CreatedById { get; set; }
 		public DateTime CreatedOn { get; set; }
 		public bool Active { get; set; }
 
