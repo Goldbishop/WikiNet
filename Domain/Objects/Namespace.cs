@@ -25,7 +25,8 @@ namespace Wiki.Domain {
 			//Navigation Properties
 			HasMany( n => n.Articles )
 				.WithRequired( a => a.Namespace );
-
+			HasMany( n => n.Access )
+				.WithRequired( ra => ra.Namespace );
 		}
 	}
 
