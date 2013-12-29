@@ -20,7 +20,7 @@ namespace Wiki.Domain {
 			//Navigation mapping
 			HasRequired( ra => ra.Role )
 				.WithMany( r => r.Access )
-				.Map( x => x.MapKey( "RoleId" ) );
+				.HasForeignKey( ra => ra.RoleID );
 			HasRequired( ra => ra.Namespace )
 				.WithMany( ns => ns.Access )
 				.Map( x => x.MapKey( "NSId" ) );
