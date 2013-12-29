@@ -45,6 +45,7 @@ namespace Wiki.Domain {
 		string City { get; set; }
 		string County { get; set; }
 		string State { get; set; }
+		string Zip { get; set; }
 		string Country { get; set; }
 
 		User User { get; set; }
@@ -61,6 +62,7 @@ namespace Wiki.Domain {
 		public string City { get; set; }
 		public string County { get; set; }
 		public string State { get; set; }
+		public string Zip { get; set; }
 		public string Country { get; set; }
 
 		public User User { get; set; }
