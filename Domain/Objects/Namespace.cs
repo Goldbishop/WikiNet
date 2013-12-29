@@ -31,7 +31,7 @@ namespace Wiki.Domain {
 	}
 
 	public interface INamespace {
-		Guid Id { get; set; }
+		int Id { get; set; }
 		string Name { get; set; }
 		string Description { get; set; }
 		bool Active { get; set; }
@@ -48,7 +48,7 @@ namespace Wiki.Domain {
 
 		#region INamespace Members
 
-		public Guid Id { get; set; }
+		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public bool Active { get; set; }
