@@ -68,6 +68,7 @@
     <Compile Include="Objects\User.cs" />
     <Compile Include="Objects\UserDetails.cs" />
     <Compile Include="Objects\Syntax.cs" />
+    <Compile Include="Parsers\Html\HeaderSyntax.cs" />
     <Compile Include="Parsers\Html\EmphasisSyntax.cs" />
   </ItemGroup>
   <ItemGroup>
