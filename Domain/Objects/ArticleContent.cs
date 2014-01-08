@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,10 @@ namespace Wiki.Domain {
 			Property( ac => ac.Id ).HasColumnName( "id" )
 				.HasDatabaseGeneratedOption( DatabaseGeneratedOption.Identity );
 			Property( ac => ac.ArticleId ).HasColumnName( "ArticleId" );
+			Property( ac => ac.Version ).HasColumnName( "version" );
 			Property( ac => ac.Title ).HasColumnName( "title" )
 				.IsRequired().HasMaxLength( 50 );
 			Property( ac => ac.Body ).HasColumnName( "body" );
-			Property( ac => ac.Version ).HasColumnName( "version" );
 			Property( ac => ac.CreatedBy ).HasColumnName( "createdby" );
 
 			//Navigation Properties
@@ -37,9 +38,9 @@ namespace Wiki.Domain {
 	public interface IArticleContent {
 		Guid Id { get; set; }
 		Guid ArticleId { get; set; }
+		DateTime Version { get; set; }
 		string Title { get; set; }
 		string Body { get; set; }
-		DateTime Version { get; set; }
 		Guid CreatedBy { get; set; }
 
 		//Navigation Properties
@@ -54,9 +55,9 @@ namespace Wiki.Domain {
 
 		public Guid Id { get; set; }
 		public Guid ArticleId { get; set; }
+		public DateTime Version { get; set; }
 		public string Title { get; set; }
 		public string Body { get; set; }
-		public DateTime Version { get; set; }
 		public Guid CreatedBy { get; set; }
 
 		//Navigation Properties
