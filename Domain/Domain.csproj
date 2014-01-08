@@ -63,6 +63,7 @@
     <Compile Include="Objects\Menu.cs" />
     <Compile Include="Objects\Namespace.cs" />
     <Compile Include="Parsers\System\NoWikiSyntax.cs" />
+    <Compile Include="Parsers\System\HorizontalRuleSyntax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Role.cs" />
     <Compile Include="Objects\RoleAccess.cs" />
