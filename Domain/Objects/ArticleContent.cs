@@ -10,8 +10,10 @@ namespace Wiki.Domain {
 		public ArticleContentMap() {
 			ToTable( "Article_Content" );
 
-			HasKey( ac => new { ac.ArticleId , ac.Version } );
+			HasKey( ac => ac.Id );
 
+			Property( ac => ac.Id ).HasColumnName( "id" )
+				.HasDatabaseGeneratedOption( DatabaseGeneratedOption.Identity );
 			Property( ac => ac.ArticleId ).HasColumnName( "ArticleId" );
 			Property( ac => ac.Title ).HasColumnName( "title" )
 				.IsRequired().HasMaxLength( 50 );
@@ -30,6 +32,7 @@ namespace Wiki.Domain {
 	}
 
 	public interface IArticleContent {
+		Guid Id { get; set; }
 		Guid ArticleId { get; set; }
 		string Title { get; set; }
 		string Body { get; set; }
@@ -45,6 +48,7 @@ namespace Wiki.Domain {
 
 		#region IArticleContent Members
 
+		public Guid Id { get; set; }
 		public Guid ArticleId { get; set; }
 		public string Title { get; set; }
 		public string Body { get; set; }
