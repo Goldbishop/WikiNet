@@ -25,7 +25,7 @@ namespace Wiki.Service {
 		/// <param name="ns">The Namespace Id that the Article will reside</param>
 		/// <param name="name">The Name of the Article</param>
 		/// <param name="title">The Title of the Article</param>
-		/// <param name="body">The Body of the Article</param>
+		/// <param name="body">The Raw Body of the Article</param>
 		/// <param name="userid">The User Id who created the Article</param>
 		/// <returns>The istance of the Article that was created</returns>
 		public Article Create( int ns , string name , string title , string body , Guid userid ) {
@@ -69,7 +69,7 @@ namespace Wiki.Service {
 		/// </summary>
 		/// <param name="id">The Article ID to edit</param>
 		/// <param name="title">The New Title for the Article</param>
-		/// <param name="body">The Body of the Article</param>
+		/// <param name="body">The Raw Body of the Article</param>
 		/// <param name="userid">The User Id who made the edit</param>
 		/// <returns></returns>
 		public Article Edit( Guid id , string title , string body , Guid userid ) {
