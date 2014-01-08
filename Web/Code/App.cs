@@ -29,9 +29,9 @@ namespace Wiki.Web {
 
 			ControllerBuilder.Current.SetControllerFactory( new WindsorControllerFactory( container.Kernel ) );
 
-			container.AddFacility(new LoggingFacility(LoggerImplementation.Log4net, log4netPath);
+			container.AddFacility( new LoggingFacility( LoggerImplementation.Log4net , log4netPath ) );
 
-			CWC.Init(container);
+			CWC.Init( container );
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace Wiki.Web {
 
 		[ChildActionOnly]
 		public ActionResult Menu() {
-
+			return View();
 		}
 	}
 }
