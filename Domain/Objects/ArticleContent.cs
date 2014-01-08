@@ -28,6 +28,9 @@ namespace Wiki.Domain {
 			HasRequired( ac => ac.Article )
 				.WithMany( a => a.History )
 				.HasForeignKey(ac => ac.ArticleId);
+			HasRequired( ac => ac.Raw )
+				.WithRequiredDependent( acr => acr.ArticleContent )
+				.Map( x => x.MapKey( "id" ) );
 		}
 	}
 
@@ -42,6 +45,7 @@ namespace Wiki.Domain {
 		//Navigation Properties
 		User User { get; set; }
 		Article Article { get; set; }
+		ArticleContentRaw Raw { get; set; }
 	}
 
 	public class ArticleContent : IArticleContent {
@@ -58,6 +62,7 @@ namespace Wiki.Domain {
 		//Navigation Properties
 		public User User { get; set; }
 		public Article Article { get; set; }
+		public ArticleContentRaw Raw { get; set; }
 
 		#endregion
 	}
