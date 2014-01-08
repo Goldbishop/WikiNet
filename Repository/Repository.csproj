@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repository\ArticleContentRawRepository.cs" />
     <Compile Include="RepositoryInstaller.cs" />
     <Compile Include="Repository\MenuRepository.cs" />
     <Compile Include="Repository\NamespaceRepository.cs" />
