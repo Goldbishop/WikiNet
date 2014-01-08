@@ -81,9 +81,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{919411d0-0310-4b61-af61-8c1aa64de5ed}</Project>
