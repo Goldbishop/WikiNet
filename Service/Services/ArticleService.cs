@@ -42,16 +42,25 @@ namespace Wiki.Service {
 			ArticleRepository.Add( art );
 			ArticleRepository.Save();
 
+			var parsed = SyntaxHelper.Parse( body );
+
+			//TODO: 
 			var artdetails = new ArticleContent() {
 				ArticleId = art.Id ,
 				Title = title ,
-				Body = body ,
+				Body = parsed ,
 				Version = now ,
 				CreatedBy = userid
 			};
 
 			ArticleContentRepository.Add( artdetails );
 			ArticleContentRepository.Save();
+
+			var artdetailsraw = new ArticleContentRaw() {
+				ArticleContentId = artdetails.Id,
+				Body = body
+			};
+			
 
 			return art;
 		}
