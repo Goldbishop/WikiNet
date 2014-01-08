@@ -74,6 +74,7 @@
     <Compile Include="Parsers\Html\HeaderSyntax.cs" />
     <Compile Include="Parsers\Html\EmphasisSyntax.cs" />
     <Compile Include="Parsers\SyntaxParser.cs" />
+    <Compile Include="Parsers\System\SystemSyntax.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
